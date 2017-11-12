@@ -7,7 +7,7 @@ namespace LogACat.Tests
 	public class ChecksumTest
 	{
 		[TestMethod]
-		public void GenerateMD5ChecksumTest()
+		public void GenerateMD5Checksum()
 		{
 			var dateTimeProvider = new DateTimeProvider();
 
