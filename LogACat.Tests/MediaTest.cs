@@ -21,7 +21,7 @@ namespace LogACat.Tests
 				File.Create(media.Root, "Fil05.txt", 5555, null, dateTimeProvider),
 			});
 
-			Assert.AreEqual(16665, media.Root.Size);
+			Assert.AreEqual(16665U, media.Root.Size);
 		}
 	}
 }
