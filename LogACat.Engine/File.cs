@@ -41,5 +41,10 @@ namespace LogACat.Engine
 				Checksum = checksum
 			};
 		}
+
+		public override string ToString()
+		{
+			return $"Name = {Name}, Size = {Size}";
+		}
 	}
 }

@@ -76,5 +76,11 @@ namespace LogACat.Engine
 				size += dir.Size;
 			return size;
 		}
+
+		public override string ToString()
+		{
+			return $"Name = {Name}, Directories = {Directories.Count}, Files = {Files.Count}";
+		}
+
 	}
 }
