@@ -8,7 +8,5 @@ namespace LogACat.Engine
 		{
 			get { return DateTime.UtcNow; }
 		}
-
-		public static readonly IDateTimeProvider Default = new DateTimeProvider();
 	}
 }

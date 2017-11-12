@@ -9,6 +9,8 @@ namespace LogACat.Tests
 		[TestMethod]
 		public void GenerateMD5ChecksumTest()
 		{
+			var dateTimeProvider = new DateTimeProvider();
+
 			var hash = "apansson".GetMD5Hash();
 			Assert.AreEqual(16, hash.Length);
 			var hashString = hash.ToMD5String();
