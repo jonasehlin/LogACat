@@ -40,18 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DirectoryItem.cs" />
-    <Compile Include="FileItem.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="Directory.cs" />
+    <Compile Include="File.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StreamHelper.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LogACat.Database\LogACat.Database.csproj">
-      <Project>{4095f146-f5d6-4d0f-8d2c-fa83df40f47a}</Project>
-      <Name>LogACat.Database</Name>
-    </ProjectReference>
+    <Compile Include="MD5Helper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

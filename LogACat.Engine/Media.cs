@@ -1,30 +1,19 @@
-﻿using LogACat.Database;
-using System.Collections.Generic;
+﻿using System;
 
 namespace LogACat.Engine
 {
 	public class Media
 	{
+		public Guid Id { get; set; }
 		public string Name { get; set; }
+		public DateTime Created { get; set; }
+		public DateTime Updated { get; set; }
+		public Guid? RootId { get; set; }
 
-		public readonly List<Item> Content = new List<Item>();
-
-		public void ReadContent(IEnumerable<FilePost> filePosts)
+		public Directory Root
 		{
-			foreach (var filePost in filePosts)
-			{
-				switch (filePost.Type)
-				{
-					case FilePostType.File:
-						break;
-					case FilePostType.Directory:
-						break;
-
-					case FilePostType.None:
-					default:
-						break;
-				}
-			}
+			get;
+			set;
 		}
 	}
 }

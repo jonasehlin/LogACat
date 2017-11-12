@@ -25,11 +25,10 @@ namespace LogACat.Database
 			_db = new SqlConnection(connectionString);
 		}
 
-
-		public IEnumerable<FilePost> GetAllFilePosts(string connectionString)
+		/*public IEnumerable<FilePost> GetAllFilePosts(string connectionString)
 		{
 			// Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Jonas\Projekt\Privat\LogACat\LogACat.Database\LogACat.mdf;Integrated Security=True
 			return _db.Query<FilePost>("SELECT * FROM [dbo].[FilePost]");
-		}
+		}*/
 	}
 }

@@ -2,12 +2,12 @@
 
 namespace LogACat.Engine
 {
-	public class DirectoryItem : Item
+	public class Directory
 	{
-		public readonly List<DirectoryItem> Directories = new List<DirectoryItem>();
-		public readonly List<FileItem> Files = new List<FileItem>();
+		public readonly List<Directory> Directories = new List<Directory>();
+		public readonly List<File> Files = new List<File>();
 
-		public override ulong Size
+		public ulong Size
 		{
 			get
 			{
