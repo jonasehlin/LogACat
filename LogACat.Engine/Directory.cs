@@ -81,6 +81,5 @@ namespace LogACat.Engine
 		{
 			return $"Name = {Name}, Directories = {Directories.Count}, Files = {Files.Count}";
 		}
-
 	}
 }

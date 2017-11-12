@@ -12,7 +12,8 @@ namespace LogACat.Database
 
 		public DirectoryModel(IDbConnection db)
 		{
-			db.Open();
+			if (db.State == ConnectionState.Closed)
+				db.Open();
 			_db = db;
 		}
 
@@ -22,6 +23,9 @@ namespace LogACat.Database
 INSERT INTO [dbo].[Directory] ([Id], [ParentId], [Name], [Created])
 VALUES (@Id, @ParentId, @Name, @Created)",
 				new { directory.Id, directory.ParentId, directory.Name, directory.Created });
+			
+			// TODO: Add sub directories.
+			// TODO: Add files
 		}
 
 		public void DeleteDirectory(Guid id)
@@ -31,7 +35,8 @@ VALUES (@Id, @ParentId, @Name, @Created)",
 
 		public Directory GetDirectory(Guid id)
 		{
-			throw new NotImplementedException();
+			return _db.QuerySingleOrDefault<Directory>("SELECT [Id], [ParentId], [Name], [Created] FROM [dbo].[Directory] WHERE [Id] = @id",
+				new { id });
 		}
 
 		public Directory GetDirectory(string name, Guid? parentDirectoryId)

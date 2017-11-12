@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using LogACat.Database;
 using LogACat.Engine;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.SqlClient;
-using LogACat.Database;
 
 namespace LogACat.Tests
 {

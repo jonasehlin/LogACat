@@ -9,15 +9,20 @@ namespace LogACat.Database
 	public class MediaModel : IMediaModel
 	{
 		IDbConnection _db;
+		IDirectoryModel _directoryModel;
 
 		public MediaModel(IDbConnection db)
 		{
-			db.Open();
+			if (db.State == ConnectionState.Closed)
+				db.Open();
 			_db = db;
+			_directoryModel = new DirectoryModel(db);
 		}
 
 		public void AddMedia(Media media)
 		{
+			_directoryModel.AddDirectory(media.Root);
+
 			_db.Execute(@"
 INSERT INTO [dbo].[Media] ([Id], [Name], [Created], [Updated], [RootId])
 VALUES (@Id, @Name, @Created, @Updated, @RootId)",
