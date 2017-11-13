@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace LogACat.Engine
 {
@@ -36,7 +38,7 @@ namespace LogACat.Engine
 			}
 		}
 
-		public ulong Size
+		public long Size
 		{
 			get
 			{
@@ -55,25 +57,44 @@ namespace LogACat.Engine
 			};
 		}
 
-		private ulong GetFileSize()
+		public static Directory Create(DirectoryInfo directoryInfo, Directory parent)
+		{
+			if (!directoryInfo.Exists)
+				throw new DirectoryNotFoundException();
+
+			var directory = new Directory()
+			{
+				Id = Guid.NewGuid(),
+				Parent = parent,
+				Name = directoryInfo.Name,
+				Created = directoryInfo.CreationTimeUtc
+			};
+			directory.Directories.AddRange(directoryInfo.EnumerateDirectories().Select(d => Create(d, directory)));
+			directory.Files.AddRange(directoryInfo.EnumerateFiles().Select(f => File.Create(f, directory)));
+			return directory;
+		}
+
+		private long GetFileSize()
 		{
 			if (Files == null)
 				return 0;
 
-			ulong size = 0;
+			long size = 0;
 			foreach (var file in Files)
 				size += file.Size;
+
 			return size;
 		}
 
-		private ulong GetDirectorySize()
+		private long GetDirectorySize()
 		{
 			if (Directories == null)
 				return 0;
 
-			ulong size = 0;
+			long size = 0;
 			foreach (var dir in Directories)
 				size += dir.Size;
+
 			return size;
 		}
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 
 namespace LogACat.Engine
 {
@@ -7,7 +9,7 @@ namespace LogACat.Engine
 		public Guid Id { get; set; }
 		public Guid DirectoryId { get; set; }
 		public string Name { get; set; }
-		public ulong Size { get; set; }
+		public long Size { get; set; }
 		public DateTime Created { get; set; }
 		public DateTime Modified { get; set; }
 		public byte[] Checksum { get; set; }
@@ -27,7 +29,7 @@ namespace LogACat.Engine
 			}
 		}
 
-		public static File Create(Directory directory, string name, ulong size, byte[] checksum, IDateTimeProvider dateTimeProvider)
+		public static File Create(Directory directory, string name, long size, byte[] checksum, IDateTimeProvider dateTimeProvider)
 		{
 			var now = dateTimeProvider.UtcNow;
 			return new File()
@@ -39,6 +41,23 @@ namespace LogACat.Engine
 				Created = now,
 				Modified = now,
 				Checksum = checksum
+			};
+		}
+
+		public static File Create(FileInfo fileInfo, Directory parentDirectory)
+		{
+			if (!fileInfo.Exists)
+				throw new FileNotFoundException();
+
+			return new File()
+			{
+				Id = Guid.NewGuid(),
+				Directory = parentDirectory,
+				Name = fileInfo.Name,
+				Size = fileInfo.Length,
+				Created = fileInfo.CreationTimeUtc,
+				Modified = fileInfo.LastWriteTimeUtc,
+				Checksum = fileInfo.OpenRead().GetMD5Checksum()
 			};
 		}
 
