@@ -3,6 +3,7 @@ using LogACat.Engine;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace LogACat.Database
 {
@@ -36,7 +37,7 @@ VALUES (@Id, @Name, @Created, @Updated, @RootId)",
 
 		public IEnumerable<Media> GetMedia()
 		{
-			return _db.Query<Media>("SELECT [Id], [Name], [Created], [Updated], [RootId] FROM [dbo].[Media]");
+			return _db.Query<Media>("SELECT [Id], [Name], [Created], [Updated], [RootId] FROM [dbo].[Media]").OrderBy(m => m.Name);
 		}
 
 		public Media GetMedia(Guid id)

@@ -44,6 +44,7 @@
     <Compile Include="Directory.cs" />
     <Compile Include="File.cs" />
     <Compile Include="IDirectoryModel.cs" />
+    <Compile Include="IFileModel.cs" />
     <Compile Include="IMediaModel.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

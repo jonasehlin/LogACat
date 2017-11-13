@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DirectoryModel.cs" />
+    <Compile Include="FileModel.cs" />
     <Compile Include="MediaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
