@@ -9,7 +9,7 @@ namespace LogACat.Tests
 	public class MediaTest
 	{
 		[TestMethod]
-		public void AddMedia()
+		public void CreateMedia()
 		{
 			var dateTimeProvider = new DateTimeProvider();
 
@@ -39,7 +39,7 @@ namespace LogACat.Tests
 				if (media != null)
 					model.DeleteMedia(media.Id);
 
-				media = Media.Create("TestCD1", Directory.Create("Root", null, dateTimeProvider), dateTimeProvider);
+				media = Media.Create("TestCD1", Directory.Create("TestRootCD1", null, dateTimeProvider), dateTimeProvider);
 				media.Root.Files.AddRange(new[]
 				{
 					File.Create(media.Root, "Fil01.txt", 1111, null, dateTimeProvider),
@@ -50,6 +50,7 @@ namespace LogACat.Tests
 				});
 
 				model.AddMedia(media);
+				model.DeleteMedia(media.Id);
 			}
 		}
 	}
