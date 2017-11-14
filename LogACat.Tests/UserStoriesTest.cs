@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using LogACat.Database;
 using LogACat.Engine;
-using LogACat.Database;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace LogACat.Tests
 {
@@ -27,6 +28,7 @@ namespace LogACat.Tests
 					mediaModel.DeleteMedia(oldMedia);
 
 				mediaModel.AddMedia(media);
+				Trace.WriteLine($"Media = {media}, Root.Size = {media.Root.Size} bytes");
 			}
 		}
 	}
