@@ -14,7 +14,7 @@ namespace LogACat.Engine
 		public Media ReadMedia(IDateTimeProvider dateTimeProvider)
 		{
 			var directoryInfo = new DirectoryInfo(Path);
-			return Media.Create(directoryInfo.Root.Name, Directory.Create(directoryInfo, null), dateTimeProvider);
+			return Media.Create(directoryInfo.FullName, Directory.Create(directoryInfo, null), dateTimeProvider);
 		}
 	}
 }

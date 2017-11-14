@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LogACat.Engine;
+using LogACat.Database;
+using System.Data.SqlClient;
 
 namespace LogACat.Tests
 {
@@ -13,7 +15,13 @@ namespace LogACat.Tests
 			IDateTimeProvider dateTimeProvider = new SpecificDateTimeProvider(new DateTime(2017, 11, 14, 00, 39, 00, DateTimeKind.Utc));
 			IMediaReader reader = new PathMediaReader(@"C:\Temp");
 			var media = reader.ReadMedia(dateTimeProvider);
-			Assert.AreEqual(@"C:\", media.Name);
+			Assert.AreEqual(@"C:\Temp", media.Name);
+
+			using (var db = new SqlConnection(Properties.Settings.Default.DbConnectionString))
+			{
+				IMediaModel model = new MediaModel(db);
+				model.AddMedia(media);
+			}
 		}
 	}
 }
