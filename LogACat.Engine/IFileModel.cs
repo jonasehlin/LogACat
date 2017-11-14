@@ -8,5 +8,6 @@ namespace LogACat.Engine
 		void AddFile(File file);
 		File GetFile(Guid id);
 		IEnumerable<File> GetFiles(Guid directoryId);
+		void DeleteFiles(Guid directoryId);
 	}
 }

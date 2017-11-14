@@ -26,6 +26,11 @@ VALUES (@Id, @DirectoryId, @Name, @Size, @Created, @Modified, @Checksum)",
 				new { file.Id, file.DirectoryId, file.Name, file.Size, file.Created, file.Modified, file.Checksum });
 		}
 
+		public void DeleteFiles(Guid directoryId)
+		{
+			_db.Execute("DELETE FROM [dbo].[File] WHERE [DirectoryId] = @directoryId", new { directoryId });
+		}
+
 		public File GetFile(Guid id)
 		{
 			return _db.QuerySingleOrDefault<File>(@"

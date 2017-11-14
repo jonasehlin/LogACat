@@ -9,12 +9,14 @@ namespace LogACat.Database
 	public class DirectoryModel : IDirectoryModel
 	{
 		IDbConnection _db;
+		IFileModel _fileModel;
 
-		public DirectoryModel(IDbConnection db)
+		public DirectoryModel(IDbConnection db, IFileModel fileModel)
 		{
 			if (db.State == ConnectionState.Closed)
 				db.Open();
 			_db = db;
+			_fileModel = fileModel;
 		}
 
 		public void AddDirectory(Directory directory)
@@ -23,13 +25,26 @@ namespace LogACat.Database
 INSERT INTO [dbo].[Directory] ([Id], [ParentId], [Name], [Created])
 VALUES (@Id, @ParentId, @Name, @Created)",
 				new { directory.Id, directory.ParentId, directory.Name, directory.Created });
-			
-			// TODO: Add sub directories.
-			// TODO: Add files
+
+			foreach (var subDirectory in directory.SubDirectories)
+			{
+				AddDirectory(subDirectory);
+			}
+
+			foreach (var file in directory.Files)
+			{
+				_fileModel.AddFile(file);
+			}
 		}
 
 		public void DeleteDirectory(Guid id)
 		{
+			foreach (var subDirectory in GetSubDirectories(id))
+			{
+				DeleteDirectory(subDirectory.Id);
+			}
+
+			// The File.FK_File_Directory cascade deletes all related files.
 			_db.Execute("DELETE FROM [dbo].[Directory] WHERE @Id = @id", new { id });
 		}
 
@@ -50,7 +65,10 @@ AND [Name] = @name",
 
 		public IEnumerable<Directory> GetSubDirectories(Guid directoryId)
 		{
-			throw new NotImplementedException();
+			return _db.Query<Directory>(@"
+SELECT [Id], [ParentId], [Name], [Created] FROM [dbo].[Directory]
+WHERE [ParentId] = @directoryId",
+				new { directoryId });
 		}
 
 		public void SetDirectoryName(Guid id, string name)

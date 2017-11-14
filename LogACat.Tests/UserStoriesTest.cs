@@ -19,8 +19,14 @@ namespace LogACat.Tests
 
 			using (var db = new SqlConnection(Properties.Settings.Default.DbConnectionString))
 			{
-				IMediaModel model = new MediaModel(db);
-				model.AddMedia(media);
+				IFileModel fileModel = new FileModel(db);
+				IMediaModel mediaModel = new MediaModel(db, new DirectoryModel(db, fileModel), fileModel);
+
+				var oldMedia = mediaModel.GetMedia(media.Name);
+				if (oldMedia != null)
+					mediaModel.DeleteMedia(oldMedia);
+
+				mediaModel.AddMedia(media);
 			}
 		}
 	}

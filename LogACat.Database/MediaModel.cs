@@ -11,13 +11,15 @@ namespace LogACat.Database
 	{
 		IDbConnection _db;
 		IDirectoryModel _directoryModel;
+		IFileModel _fileModel;
 
-		public MediaModel(IDbConnection db)
+		public MediaModel(IDbConnection db, IDirectoryModel directoryModel, IFileModel fileModel)
 		{
 			if (db.State == ConnectionState.Closed)
 				db.Open();
 			_db = db;
-			_directoryModel = new DirectoryModel(db);
+			_directoryModel = directoryModel;
+			_fileModel = fileModel;
 		}
 
 		public void AddMedia(Media media)
@@ -32,7 +34,20 @@ VALUES (@Id, @Name, @Created, @Updated, @RootId)",
 
 		public void DeleteMedia(Guid id)
 		{
-			_db.Execute("DELETE FROM [dbo].[Media] WHERE [Id] = @id", new { id });
+			DeleteMedia(GetMedia(id));
+		}
+
+		public void DeleteMedia(Media media)
+		{
+			if (media.RootId.HasValue)
+			{
+				// Not necessary to delete the Media because the Directory-FK cascades on delete
+				_directoryModel.DeleteDirectory(media.RootId.Value);
+			}
+			else
+			{
+				_db.Execute("DELETE FROM [dbo].[Media] WHERE [Id] = @Id", new { media.Id });
+			}
 		}
 
 		public IEnumerable<Media> GetMedia()

@@ -45,5 +45,10 @@ namespace LogACat.Engine
 				Root = root
 			};
 		}
+
+		public override string ToString()
+		{
+			return $"Name = {Name}, Root = {Root}";
+		}
 	}
 }

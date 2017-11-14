@@ -12,7 +12,7 @@ namespace LogACat.Engine
 		public string Name { get; set; }
 		public DateTime Created { get; set; }
 
-		public readonly List<Directory> Directories = new List<Directory>();
+		public readonly List<Directory> SubDirectories = new List<Directory>();
 		public readonly List<File> Files = new List<File>();
 
 		Directory _parent;
@@ -69,7 +69,7 @@ namespace LogACat.Engine
 				Name = directoryInfo.Name,
 				Created = directoryInfo.CreationTimeUtc
 			};
-			directory.Directories.AddRange(directoryInfo.EnumerateDirectories().Select(d => Create(d, directory)));
+			directory.SubDirectories.AddRange(directoryInfo.EnumerateDirectories().Select(d => Create(d, directory)));
 			directory.Files.AddRange(directoryInfo.EnumerateFiles().Select(f => File.Create(f, directory)));
 			return directory;
 		}
@@ -88,11 +88,11 @@ namespace LogACat.Engine
 
 		private long GetDirectorySize()
 		{
-			if (Directories == null)
+			if (SubDirectories == null)
 				return 0;
 
 			long size = 0;
-			foreach (var dir in Directories)
+			foreach (var dir in SubDirectories)
 				size += dir.Size;
 
 			return size;
@@ -100,7 +100,7 @@ namespace LogACat.Engine
 
 		public override string ToString()
 		{
-			return $"Name = {Name}, Directories = {Directories.Count}, Files = {Files.Count}";
+			return $"Name = {Name}, Directories = {SubDirectories.Count}, Files = {Files.Count}";
 		}
 	}
 }

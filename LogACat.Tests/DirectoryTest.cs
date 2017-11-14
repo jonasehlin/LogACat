@@ -14,15 +14,15 @@ namespace LogACat.Tests
 			var dateTimeProvider = new DateTimeProvider();
 			using (var db = new SqlConnection(Properties.Settings.Default.DbConnectionString))
 			{
-				IDirectoryModel model = new DirectoryModel(db);
+				IDirectoryModel directoryModel = new DirectoryModel(db, new FileModel(db));
 
-				var directory = model.GetDirectory("TestRoot123", null);
+				var directory = directoryModel.GetDirectory("TestRoot123", null);
 				if (directory != null)
-					model.DeleteDirectory(directory.Id);
+					directoryModel.DeleteDirectory(directory.Id);
 
 				directory = Directory.Create("TestRoot123", null, dateTimeProvider);
-				model.AddDirectory(directory);
-				model.DeleteDirectory(directory.Id);
+				directoryModel.AddDirectory(directory);
+				directoryModel.DeleteDirectory(directory.Id);
 			}
 		}
 	}

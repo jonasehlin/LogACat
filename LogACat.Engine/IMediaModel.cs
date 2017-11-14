@@ -11,5 +11,6 @@ namespace LogACat.Engine
 		Media GetMedia(string name);
 		void UpdateMedia(Guid id, Media media);
 		void DeleteMedia(Guid id);
+		void DeleteMedia(Media media);
 	}
 }
