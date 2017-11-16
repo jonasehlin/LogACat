@@ -65,9 +65,7 @@ AND [Name] = @name",
 
 		public IEnumerable<Directory> GetSubDirectories(Guid directoryId)
 		{
-			return _db.Query<Directory>(@"
-SELECT [Id], [ParentId], [Name], [Created] FROM [dbo].[Directory]
-WHERE [ParentId] = @directoryId",
+			return _db.Query<Directory>("SELECT [Id], [ParentId], [Name], [Created] FROM [dbo].[Directory] WHERE [ParentId] = @directoryId",
 				new { directoryId });
 		}
 
