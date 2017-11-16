@@ -93,5 +93,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogACat.Database\LogACat.Database.csproj">
+      <Project>{4095f146-f5d6-4d0f-8d2c-fa83df40f47a}</Project>
+      <Name>LogACat.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogACat.Engine\LogACat.Engine.csproj">
+      <Project>{733a238a-36c7-4f2b-8f9d-b93615d61f54}</Project>
+      <Name>LogACat.Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

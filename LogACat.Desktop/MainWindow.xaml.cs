@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogACat.Engine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,25 @@ namespace LogACat.Desktop
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		IDateTimeProvider _dateTimeProvider = new DateTimeProvider();
+
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			// TODO: Remove testing...
+			var node = new TreeViewItem() { Header = "Ett" };
+			node.Items.Add(new TreeViewItem() { Header = "Två" });
+			mediaTreeView.Items.Add(node);
+
+			var directories = new[]
+			{
+				Directory.Create("Temp", null, _dateTimeProvider),
+				Directory.Create("Apa", null, _dateTimeProvider),
+				Directory.Create("Kaka", null, _dateTimeProvider),
+				Directory.Create("Hoho jaja", null, _dateTimeProvider)
+			};
+			directoryListView.ItemsSource = directories;
 		}
 
 		private void MenuItem_ExitClick(object sender, RoutedEventArgs e)

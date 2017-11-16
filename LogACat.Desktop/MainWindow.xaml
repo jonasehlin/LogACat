@@ -20,7 +20,28 @@
 					<Label Content="{x:Static resources:Resources.StatusReady}"/>
 				</StatusBarItem>
 			</StatusBar>
-			<TextBlock Name="hoho"/>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="200" />
+					<ColumnDefinition Width="5" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<TreeView Name="mediaTreeView"/>
+				<GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+				<ListView Name="directoryListView" Grid.Column="2">
+					<ListView.View>
+						<GridView>
+							<GridView.Columns>
+								<GridViewColumn Header="Namn" Width="120" DisplayMemberBinding="{Binding Name}"/>
+								<GridViewColumn Header="Storlek" Width="80" DisplayMemberBinding="{Binding Size}"/>
+								<GridViewColumn Header="Skapad" Width="80" DisplayMemberBinding="{Binding Created}"/>
+								<GridViewColumn Header="Uppdaterad" Width="80" DisplayMemberBinding="{Binding Modified}"/>
+							</GridView.Columns>
+						</GridView>
+					</ListView.View>
+
+				</ListView>
+			</Grid>
 		</DockPanel>
 	</Grid>
 </Window>
