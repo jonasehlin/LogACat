@@ -42,7 +42,7 @@ namespace LogACat.Engine
 		{
 			get
 			{
-				return GetDirectorySize() + GetFileSize();
+				return CalculateDirectorySize() + CalculateFileSize();
 			}
 		}
 
@@ -74,7 +74,7 @@ namespace LogACat.Engine
 			return directory;
 		}
 
-		private long GetFileSize()
+		private long CalculateFileSize()
 		{
 			if (Files == null)
 				return 0;
@@ -86,7 +86,7 @@ namespace LogACat.Engine
 			return size;
 		}
 
-		private long GetDirectorySize()
+		private long CalculateDirectorySize()
 		{
 			if (SubDirectories == null)
 				return 0;
