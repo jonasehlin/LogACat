@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseModel.cs" />
     <Compile Include="DirectoryModel.cs" />
     <Compile Include="FileModel.cs" />
     <Compile Include="MediaModel.cs" />

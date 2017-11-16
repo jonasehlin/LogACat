@@ -51,6 +51,7 @@
     <Compile Include="IFileReader.cs" />
     <Compile Include="IMediaModel.cs" />
     <Compile Include="IMediaReader.cs" />
+    <Compile Include="IModel.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="PathMediaReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
