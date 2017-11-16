@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 
 namespace LogACat.Engine
@@ -29,19 +28,24 @@ namespace LogACat.Engine
 			}
 		}
 
-		public static File Create(Directory directory, string name, long size, byte[] checksum, IDateTimeProvider dateTimeProvider)
+		public static File Create(Directory directory, string name, long size, DateTime created, DateTime modified, byte[] checksum)
 		{
-			var now = dateTimeProvider.UtcNow;
 			return new File()
 			{
 				Id = Guid.NewGuid(),
 				Directory = directory,
 				Name = name,
 				Size = size,
-				Created = now,
-				Modified = now,
+				Created = created,
+				Modified = modified,
 				Checksum = checksum
 			};
+		}
+
+		public static File Create(Directory directory, string name, long size, byte[] checksum, IDateTimeProvider dateTimeProvider)
+		{
+			var now = dateTimeProvider.UtcNow;
+			return Create(directory, name, size, now, now, checksum);
 		}
 
 		public static File Create(FileInfo fileInfo, Directory parentDirectory)
@@ -49,16 +53,8 @@ namespace LogACat.Engine
 			if (!fileInfo.Exists)
 				throw new FileNotFoundException();
 
-			return new File()
-			{
-				Id = Guid.NewGuid(),
-				Directory = parentDirectory,
-				Name = fileInfo.Name,
-				Size = fileInfo.Length,
-				Created = fileInfo.CreationTimeUtc,
-				Modified = fileInfo.LastWriteTimeUtc,
-				Checksum = fileInfo.OpenRead().GetMD5Checksum()
-			};
+			return Create(parentDirectory, fileInfo.Name, fileInfo.Length,
+				fileInfo.CreationTimeUtc, fileInfo.LastWriteTimeUtc, fileInfo.OpenRead().GetMD5Checksum());
 		}
 
 		public override string ToString()

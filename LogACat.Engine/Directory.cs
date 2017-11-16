@@ -46,15 +46,20 @@ namespace LogACat.Engine
 			}
 		}
 
-		public static Directory Create(string name, Directory parent, IDateTimeProvider dateTimeProvider)
+		public static Directory Create(string name, Directory parent, DateTime created)
 		{
 			return new Directory()
 			{
 				Id = Guid.NewGuid(),
 				Parent = parent,
 				Name = name,
-				Created = dateTimeProvider.UtcNow
+				Created = created
 			};
+		}
+
+		public static Directory Create(string name, Directory parent, IDateTimeProvider dateTimeProvider)
+		{
+			return Create(name, parent, dateTimeProvider.UtcNow);
 		}
 
 		public static Directory Create(DirectoryInfo directoryInfo, Directory parent)
@@ -62,13 +67,7 @@ namespace LogACat.Engine
 			if (!directoryInfo.Exists)
 				throw new DirectoryNotFoundException();
 
-			var directory = new Directory()
-			{
-				Id = Guid.NewGuid(),
-				Parent = parent,
-				Name = directoryInfo.Name,
-				Created = directoryInfo.CreationTimeUtc
-			};
+			var directory = Create(directoryInfo.Name, parent, directoryInfo.CreationTimeUtc);
 			directory.SubDirectories.AddRange(directoryInfo.EnumerateDirectories().Select(d => Create(d, directory)));
 			directory.Files.AddRange(directoryInfo.EnumerateFiles().Select(f => File.Create(f, directory)));
 			return directory;
