@@ -1,12 +1,26 @@
 ﻿<Window x:Class="LogACat.Desktop.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LogACat.Desktop"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:local="clr-namespace:LogACat.Desktop"
+	xmlns:resources="clr-namespace:LogACat.Desktop.Properties"
+	mc:Ignorable="d"
+	Title="LogACat" Height="350" Width="525">
+	<Grid>
+		<DockPanel>
+			<Menu DockPanel.Dock="Top">
+				<MenuItem Header="{x:Static resources:Resources.MenuFile}">
+					<Separator/>
+					<MenuItem Header="{x:Static resources:Resources.MenuExit}" Click="MenuItem_ExitClick"/>
+				</MenuItem>
+			</Menu>
+			<StatusBar DockPanel.Dock="Bottom">
+				<StatusBarItem>
+					<Label Content="{x:Static resources:Resources.StatusReady}"/>
+				</StatusBarItem>
+			</StatusBar>
+			<TextBlock Name="hoho"/>
+		</DockPanel>
+	</Grid>
 </Window>

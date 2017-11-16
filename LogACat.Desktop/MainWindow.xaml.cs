@@ -24,5 +24,10 @@ namespace LogACat.Desktop
 		{
 			InitializeComponent();
 		}
+
+		private void MenuItem_ExitClick(object sender, RoutedEventArgs e)
+		{
+			Close();
+		}
 	}
 }
