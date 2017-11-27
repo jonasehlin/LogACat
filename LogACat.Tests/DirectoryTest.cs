@@ -9,6 +9,7 @@ namespace LogACat.Tests
 	public class DirectoryTest
 	{
 		[TestMethod]
+		[TestCategory("Integration")]
 		public void AddDirectoryToModel()
 		{
 			var dateTimeProvider = new DateTimeProvider();
